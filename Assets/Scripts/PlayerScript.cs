@@ -63,5 +63,8 @@ public class PlayerScript : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
+
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetFloat("Speed", Mathf.Abs(move));
     }
 }
