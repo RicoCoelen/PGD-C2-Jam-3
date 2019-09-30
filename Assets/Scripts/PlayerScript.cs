@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public const float startHealth = 100;
-    public const float speed = 10;
+    public const float speed = 1;
     float health;
 
 
@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 velocity = Vector2.zero;
+        Vector3 velocity = Vector3.zero;
 
         if (Input.GetKey("w"))
         {
@@ -39,5 +39,7 @@ public class PlayerScript : MonoBehaviour
 
         velocity.Normalize();
         velocity *= speed;
+
+        transform.position += velocity;
     }
 }
