@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
     // speed and movement of rigidbody
     public float speed = 40f;
     float move;
-    bool facingRight = true;
+    public bool facingRight = true;
 
     // animator
     public Animator animator;
@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     // jump 
     Vector2 jump = new Vector2(0, 1);
     public float jumpForce = 10.0f;
-    public bool isGrounded = false;
+    public bool isGrounded = true;
 
 
     // Start is called before the first frame update
