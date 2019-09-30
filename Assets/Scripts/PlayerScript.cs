@@ -4,42 +4,64 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public const float startHealth = 100;
-    public const float speed = 1;
-    float health;
+    // rigidbody
+    Rigidbody2D rb;
+
+    // speed and movement of rigidbody
+    public float speed = 40f;
+    float move;
+    bool facingRight = true;
+
+    // animator
+    public Animator animator;
+
+    // jump 
+    Vector2 jump = new Vector2(0, 1);
+    public float jumpForce = 10.0f;
+    public bool isGrounded = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 velocity = Vector3.zero;
 
-        if (Input.GetKey("w"))
+    }
+
+    private void FixedUpdate()
+    {
+        // get input from player
+        move = Input.GetAxis("Horizontal");
+
+        // move rigidbody accordingly
+        rb.velocity = new Vector2(speed * move, rb.velocity.y);
+
+        // check velocity and let player stay left after walking
+        if (rb.velocity.x > 0 && !facingRight || rb.velocity.x < 0 && facingRight)
         {
-            velocity.y += 1;
-        }
-        if (Input.GetKey("a"))
-        {
-            velocity.x -= 1;
-        }
-        if (Input.GetKey("s"))
-        {
-            velocity.y -= 1;
-        }
-        if (Input.GetKey("d"))
-        {
-            velocity.x += 1;
+            facingRight = !facingRight;
         }
 
-        velocity.Normalize();
-        velocity *= speed;
+        // check space for jump
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            // jump
+            rb.AddForce(jump * jumpForce, ForceMode2D.Force);
+        }
 
-        transform.position += velocity;
+        // flip object to corresponding side
+        if (facingRight == true)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }
