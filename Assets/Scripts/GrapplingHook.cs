@@ -8,7 +8,7 @@ public class GrapplingHook : MonoBehaviour
     DistanceJoint2D joint;
     Vector3 targetPos;
     RaycastHit2D hit;
-    public float maxDistance;
+    public float maxDistance=10f;
     public LayerMask mask;
 
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class GrapplingHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0) && joint.enabled == false)
         {
             Debug.LogWarning("Key pressed");
 
@@ -34,13 +34,15 @@ public class GrapplingHook : MonoBehaviour
             if (hit.collider != null)
             {
                 joint.enabled = true;
-                joint.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                Debug.Log(hit.point);
+                joint.connectedAnchor = hit.point;
                 joint.distance = Vector2.Distance(transform.position, hit.point);
             }
         }
-        if (Input.GetKeyUp("E"))
+        if (Input.GetMouseButtonDown(1) && joint.enabled == true)
         {
             joint.enabled = false;
+            Debug.Log("joint disabled");
         }
     }
 }
