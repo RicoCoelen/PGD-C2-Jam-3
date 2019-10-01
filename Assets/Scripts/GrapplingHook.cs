@@ -55,7 +55,7 @@ public class GrapplingHook : MonoBehaviour
 
         distance = Input.GetAxisRaw("Mouse ScrollWheel");
 
-        joint.distance += distance * 2f;
+        joint.distance -= distance * 4f;
 
         if (line.enabled == true)
         {

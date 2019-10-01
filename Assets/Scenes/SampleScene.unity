@@ -12229,7 +12229,7 @@ MonoBehaviour:
   speed: 10
   facingRight: 1
   animator: {fileID: 2121772311}
-  jumpForce: 750
+  jumpForce: 1217
   isGrounded: 0
   health: 1
 --- !u!50 &1366545676
@@ -12247,7 +12247,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: 9203049a57c0ac44890fe05f619532a8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 0
