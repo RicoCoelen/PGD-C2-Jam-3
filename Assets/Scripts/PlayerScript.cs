@@ -21,16 +21,13 @@ public class PlayerScript : MonoBehaviour
     public bool isGrounded = true;
 
 
+    // stats
+    public int health = 10;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void FixedUpdate()
@@ -66,5 +63,20 @@ public class PlayerScript : MonoBehaviour
 
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("Speed", Mathf.Abs(move));
+
+        // death function
+        if (health < 1)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();         
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            health -= collision.gameObject.GetComponent<EnemyScript>().damage;
+        }
     }
 }

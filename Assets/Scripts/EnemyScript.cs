@@ -10,6 +10,9 @@ public class EnemyScript : MonoBehaviour
     public float speed = 2f;
     public int facingRight = 1;
 
+    public int health = 5;
+    public int damage = 1;
+
     int layerMask = ~(1 << 9); //Exclude layer 9, so raycast doesn't hit the enemy itself
 
     // Start is called before the first frame update
