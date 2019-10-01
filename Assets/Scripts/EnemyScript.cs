@@ -15,6 +15,9 @@ public class EnemyScript : MonoBehaviour
 
     int layerMask = ~(1 << 9); //Exclude layer 9, so raycast doesn't hit the enemy itself
 
+    Vector2 rayOffset = new Vector2(0, 0);
+    float offset = 0.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +28,7 @@ public class EnemyScript : MonoBehaviour
     private void FixedUpdate()
     {
         // cast a ray down to check if on ground or not
-        RaycastHit2D floorCheck = Physics2D.Raycast(rb.position, Vector2.down, 2f, layerMask);
+        RaycastHit2D floorCheck = Physics2D.Raycast(rb.position + rayOffset, Vector2.down, 2f, layerMask);
         RaycastHit2D rightWallCheck = Physics2D.Raycast(rb.position, Vector2.right, 0.5f, layerMask);
         RaycastHit2D leftWallCheck = Physics2D.Raycast(rb.position, Vector2.left, 0.5f, layerMask);
 
@@ -39,11 +42,13 @@ public class EnemyScript : MonoBehaviour
         if (rightWallCheck.collider == true)
         {
             facingRight *= -1;
+            rayOffset.x = -offset;
         }
 
         if (leftWallCheck.collider == true)
         {
             facingRight *= -1;
+            rayOffset.x = offset;
         }
 
 
