@@ -25,13 +25,28 @@ public class EnemyScript : MonoBehaviour
     private void FixedUpdate()
     {
         // cast a ray down to check if on ground or not
-        RaycastHit2D raycast = Physics2D.Raycast(rb.position, Vector2.down, 2f, layerMask);
+        RaycastHit2D floorCheck = Physics2D.Raycast(rb.position, Vector2.down, 2f, layerMask);
+        RaycastHit2D rightWallCheck = Physics2D.Raycast(rb.position, Vector2.right, 0.5f, layerMask);
+        RaycastHit2D leftWallCheck = Physics2D.Raycast(rb.position, Vector2.left, 0.5f, layerMask);
 
         // change movement direction if the raycast doesn't hit anything
-        if (raycast.collider == false)
+        if (floorCheck.collider == false)
         {
             facingRight *= -1;
         }
+
+        // Check if hitting a wall
+        if (rightWallCheck.collider == true)
+        {
+            facingRight *= -1;
+        }
+
+        if (leftWallCheck.collider == true)
+        {
+            facingRight *= -1;
+        }
+
+
 
         if (facingRight == 1)
         {
