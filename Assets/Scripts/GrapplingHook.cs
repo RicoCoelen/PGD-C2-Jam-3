@@ -15,6 +15,7 @@ public class GrapplingHook : MonoBehaviour
     public LineRenderer line;
     public float scrollSpeed;
     public float maxDistance = 10f;
+    public float flyForce = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -67,16 +68,20 @@ public class GrapplingHook : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && joint.enabled == true)
         {
-            // remove joint
-            joint.enabled = false;
-            line.enabled = false;
-
-            // remove rigidbody
-            if (joint.connectedBody != null)
-            {
-                joint.connectedBody = null;
-            }
+            removeJoints();
         }
+
+        if (Input.GetMouseButtonDown(2) && joint.enabled == true && joint.connectedBody != false)
+        {
+            //Vector2 flyVector = (Vector2) transform.position - (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
+            
+            //joint.connectedBody.AddForceAtPosition(flyVector * flyForce, joint.transform.position);
+
+
+            Rigidbody2D rb = joint.connectedBody;
+            removeJoints();
+            rb.AddForce(((Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2) rb.transform.position).normalized * flyForce, ForceMode2D.Impulse);
+        } 
 
         distance = Input.GetAxisRaw("Mouse ScrollWheel") * scrollSpeed;
         joint.distance -= distance;
@@ -96,6 +101,18 @@ public class GrapplingHook : MonoBehaviour
             {
                 line.SetPosition(1, hit.point);
             }
+        }
+    }
+    void removeJoints()
+    {
+        // remove joint
+        joint.enabled = false;
+        line.enabled = false;
+
+        // remove rigidbody
+        if (joint.connectedBody != null)
+        {
+            joint.connectedBody = null;
         }
     }
 }
