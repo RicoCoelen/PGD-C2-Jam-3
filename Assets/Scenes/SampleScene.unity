@@ -12131,7 +12131,7 @@ GameObject:
   - component: {fileID: 1366545671}
   - component: {fileID: 1366545675}
   - component: {fileID: 1366545674}
-  - component: {fileID: 1366545677}
+  - component: {fileID: 1366545673}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -12197,6 +12197,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.52}
   serializedVersion: 2
   m_Radius: 0.4903112
+--- !u!231 &1366545673
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366545669}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 7.7980833
+  m_DampingRatio: 0
+  m_Frequency: 1
 --- !u!114 &1366545674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12209,11 +12229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2366d575241de6240a5b3a1ee273e536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 30
   mask:
     serializedVersion: 2
     m_Bits: 3639
   line: {fileID: 103583294}
+  scrollSpeed: 10
+  maxDistance: 30
 --- !u!114 &1366545675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12253,25 +12274,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!232 &1366545677
-DistanceJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366545669}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 2.1, y: 7.51}
-  m_AutoConfigureDistance: 0
-  m_Distance: 19.625494
-  m_MaxDistanceOnly: 1
 --- !u!1 &1805347109
 GameObject:
   m_ObjectHideFlags: 0
@@ -12465,7 +12467,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7152930139536384079, guid: a6c9e387ef4a3dd40be51d8c1aab8a21,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

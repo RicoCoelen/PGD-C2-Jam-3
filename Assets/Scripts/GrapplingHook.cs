@@ -5,19 +5,21 @@ using UnityEngine;
 //https://www.youtube.com/watch?v=BXTjsCERdsw dit werkt misschien beter
 public class GrapplingHook : MonoBehaviour
 {
-    DistanceJoint2D joint;
+    SpringJoint2D joint;
     Vector3 targetPos;
     RaycastHit2D hit;
-    public float maxDistance=10f;
     float distance;
+ 
 
     public LayerMask mask;
     public LineRenderer line;
+    public float scrollSpeed;
+    public float maxDistance = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
-        joint = GetComponent<DistanceJoint2D>();
+        joint = GetComponent<SpringJoint2D>();
         joint.enabled = false;
         line.enabled = false;
     }
@@ -30,37 +32,70 @@ public class GrapplingHook : MonoBehaviour
             targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             //Detects where it hits a object
-               hit = Physics2D.Raycast(transform.position, (targetPos - transform.position).normalized, maxDistance, mask);
+            hit = Physics2D.Raycast(transform.position, (targetPos - transform.position).normalized, maxDistance, mask);
 
-            if (hit.collider != null)
+            if (hit.collider != null && hit.rigidbody == null)
             {
                 // "Creates" the joint and fixes it to the right positions
                 joint.enabled = true;
+                joint.connectedBody = null;
                 joint.connectedAnchor = hit.point;
                 joint.distance = Vector2.Distance(transform.position, hit.point);
+                
 
                 // "Creates" the line and fixes it to the right positions
                 line.enabled = true;
-                line.SetPosition(0, transform.position);
-                line.SetPosition(1, hit.point);
+            }
+            else
+            {
+                if (hit.rigidbody != null)
+                {
+                    joint.connectedBody = hit.rigidbody;
+                    joint.enabled = true;
+                    joint.connectedAnchor = Vector2.zero;
+                    joint.distance = Vector2.Distance(transform.position, joint.connectedBody.position);
+
+                    // "Creates" the line and fixes it to the right positions
+                    line.enabled = true;
+                }
+                else
+                {
+                    joint.connectedBody = null;
+                }
             }
         }
 
         if (Input.GetMouseButtonDown(1) && joint.enabled == true)
         {
+            // remove joint
             joint.enabled = false;
             line.enabled = false;
-            Debug.Log("joint disabled");
+
+            // remove rigidbody
+            if (joint.connectedBody != null)
+            {
+                joint.connectedBody = null;
+            }
         }
 
-        distance = Input.GetAxisRaw("Mouse ScrollWheel");
+        distance = Input.GetAxisRaw("Mouse ScrollWheel") * scrollSpeed;
+        joint.distance -= distance;
 
-        joint.distance -= distance * 4f;
-
+        // draw lines and fix distance
         if (line.enabled == true)
         {
+            // always set first pos
             line.SetPosition(0, transform.position);
-        }
 
+            // check if rigid
+            if (joint.connectedBody != null)
+            {
+                line.SetPosition(1, joint.connectedBody.position);
+            }
+            else
+            {
+                line.SetPosition(1, hit.point);
+            }
+        }
     }
 }
