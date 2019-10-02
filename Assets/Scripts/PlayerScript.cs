@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     // jump 
     Vector2 jump = new Vector2(0, 1);
     public float jumpForce = 10.0f;
-    public bool isGrounded = true;
+    public bool isGrounded = false;
 
 
     // stats
@@ -45,7 +45,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // check space for jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
             // jump
             rb.AddForce(jump * jumpForce, ForceMode2D.Force);
@@ -68,7 +68,7 @@ public class PlayerScript : MonoBehaviour
         if (health < 1)
         {
             UnityEditor.EditorApplication.isPlaying = false;
-            Application.Quit();         
+            Application.Quit();
         }
     }
 
