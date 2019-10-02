@@ -55,6 +55,12 @@ public class RopeScript : MonoBehaviour
                 lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
             }
         }
+
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            lastNode.GetComponent<HingeJoint2D>().connectedBody = null;
+        }
     }
 
 

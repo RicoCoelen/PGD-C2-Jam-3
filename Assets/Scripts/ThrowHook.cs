@@ -20,14 +20,11 @@ public class ThrowHook : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
             Vector2 destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             currentHook = Instantiate(hook, transform.position, Quaternion.identity);
 
             currentHook.GetComponent<RopeScript>().destination = destination;
-
-
         }
     }
 }
