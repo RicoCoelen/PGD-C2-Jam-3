@@ -45,7 +45,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // check space for jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
             // jump
             rb.AddForce(jump * jumpForce, ForceMode2D.Force);
